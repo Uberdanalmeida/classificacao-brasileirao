@@ -1,0 +1,199 @@
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid #e8ece8;
+  border-radius: 12px;
+  background: #fff;
+  scrollbar-color: #b7c8bc #f2f5f2;
+  scrollbar-width: thin;
+}
+
+.standings-table {
+  width: 100%;
+  min-width: 570px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  color: #536159;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.standings-table thead {
+  background: #f7f9f7;
+}
+
+.standings-table thead th {
+  height: 38px;
+  padding: 0 4px;
+  color: #89938d;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.075em;
+  white-space: nowrap;
+}
+
+.standings-table th.position-heading {
+  width: 18px;
+  padding: 0;
+}
+
+.standings-table th.club-heading {
+  width: 175px;
+  text-align: left;
+}
+
+.standings-table th:not(.position-heading, .club-heading) {
+  width: 40px;
+}
+
+.standings-table th.points-heading {
+  color: #176f43;
+}
+
+.standings-table th.goals-heading {
+  padding-left: 17px;
+}
+
+.standings-table tbody tr {
+  height: 43px;
+  border-top: 1px solid #edf0ed;
+  transition: background 140ms ease;
+}
+
+.standings-table tbody tr:hover {
+  background: #f8fbf8;
+}
+
+.standings-table tbody td {
+  padding: 0 4px;
+}
+
+.position-cell {
+  position: relative;
+  padding-left: 0;
+  color: #45524a;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.position-indicator {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 3px;
+  height: 20px;
+  border-radius: 0 4px 4px 0;
+  background: transparent;
+  transform: translateY(-50%);
+}
+
+.position-libertadores {
+  background: #20834b;
+}
+
+.position-pre-libertadores {
+  background: #e6a62e;
+}
+
+.position-relegation {
+  background: #d94b4b;
+}
+
+.standings-table .club-cell {
+  padding: 0 6px;
+  color: #1c2821;
+  font-size: 11px;
+  font-weight: 680;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.club-crest {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+  margin-right: 7px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--crest-primary), white 78%);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--crest-primary) 0 51%, var(--crest-secondary) 51% 100%);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 35%);
+  vertical-align: middle;
+}
+
+.club-name {
+  vertical-align: middle;
+}
+
+.club-short-name {
+  display: none;
+}
+
+.standings-table .points-cell {
+  color: #176f43;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.standings-table .goals-for-cell {
+  padding-left: 4px;
+}
+
+.positive-difference {
+  color: #21804b;
+  font-weight: 650;
+}
+
+.negative-difference {
+  color: #cc4d4d;
+  font-weight: 650;
+}
+
+.empty-state {
+  display: flex;
+  min-height: 220px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #e8ece8;
+  border-radius: 12px;
+  background: #fff;
+  color: #77827a;
+  font-size: 13px;
+}
+
+.empty-state-icon {
+  color: #43815a;
+  font-size: 30px;
+}
+
+.empty-state strong {
+  color: #26352b;
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .standings-table {
+    min-width: 650px;
+    font-size: 12px;
+  }
+
+  .standings-table .club-cell {
+    width: 155px;
+  }
+
+  .club-name {
+    display: none;
+  }
+
+  .club-short-name {
+    display: inline;
+    vertical-align: middle;
+  }
+}
