@@ -26,6 +26,16 @@
   font-weight: 600;
 }
 
+.data-sync-status {
+  margin: -13px 0 20px;
+  color: #77827a;
+  font-size: 11px;
+}
+
+.data-sync-warning {
+  color: #9c5b18;
+}
+
 .competition-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.9fr);
