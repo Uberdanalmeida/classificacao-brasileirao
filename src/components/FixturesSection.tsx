@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react'
-import { fixtures } from '../data/fixtures'
-import { teams } from '../data/teams'
 import type { Fixture, Team } from '../types/standings'
 import './FixturesSection.css'
 
-const teamsById = new Map(teams.map((team) => [team.id, team]))
+interface FixturesSectionProps {
+  fixtures: Fixture[]
+  teams: Team[]
+}
 
-function getTeam(fixture: Fixture, side: 'home' | 'away'): Team {
+function getTeam(fixture: Fixture, side: 'home' | 'away', teamsById: Map<string, Team>): Team {
   const team = teamsById.get(side === 'home' ? fixture.homeTeamId : fixture.awayTeamId)
 
   if (!team) {
@@ -31,10 +32,22 @@ function formatFixtureDate(date: string) {
   }
 }
 
-function FixtureCard({ fixture }: { fixture: Fixture }) {
-  const homeTeam = getTeam(fixture, 'home')
-  const awayTeam = getTeam(fixture, 'away')
+function FixtureCard({ fixture, teamsById }: { fixture: Fixture; teamsById: Map<string, Team> }) {
+  const homeTeam = getTeam(fixture, 'home', teamsById)
+  const awayTeam = getTeam(fixture, 'away', teamsById)
   const formattedDate = formatFixtureDate(fixture.date)
+  const hasScore = typeof fixture.homeScore === 'number' && typeof fixture.awayScore === 'number'
+  const matchStatus = fixture.status === 'IN_PLAY'
+    ? 'AO VIVO'
+    : fixture.status === 'PAUSED'
+      ? 'INTERVALO'
+      : fixture.status === 'FINISHED'
+        ? 'ENCERRADO'
+        : fixture.status === 'POSTPONED'
+          ? 'ADIADO'
+          : fixture.status === 'CANCELLED'
+            ? 'CANCELADO'
+            : fixture.time
 
   return (
     <article className="fixture-card">
@@ -42,24 +55,33 @@ function FixtureCard({ fixture }: { fixture: Fixture }) {
         <span>LOCAL</span>
         <strong>{formattedDate.shortDate}</strong>
         <em>{formattedDate.weekday}</em>
-        <small>{fixture.time}</small>
+        <small>{matchStatus}</small>
       </div>
       <div className="fixture-matchup" aria-label={`${homeTeam.name} x ${awayTeam.name}`}>
         <span>{homeTeam.abbreviation}</span>
-        <strong>X</strong>
+        <strong>{hasScore ? `${fixture.homeScore} – ${fixture.awayScore}` : 'X'}</strong>
         <span>{awayTeam.abbreviation}</span>
       </div>
     </article>
   )
 }
 
-export function FixturesSection() {
-  const rounds = useMemo(() => [...new Set(fixtures.map((fixture) => fixture.round))].sort((a, b) => a - b), [])
-  const [activeRound, setActiveRound] = useState<number>(rounds[0] ?? 1)
+export function FixturesSection({ fixtures, teams }: FixturesSectionProps) {
+  const teamsById = useMemo(() => new Map(teams.map((team) => [team.id, team])), [teams])
+  const rounds = useMemo(
+    () => [...new Set(fixtures.map((fixture) => fixture.round))].sort((a, b) => a - b),
+    [fixtures],
+  )
+  const currentRound = useMemo(() => {
+    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(new Date())
+    return fixtures.find((fixture) => fixture.date >= today && fixture.status !== 'FINISHED')?.round ?? rounds[0] ?? 1
+  }, [fixtures, rounds])
+  const [selectedRound, setSelectedRound] = useState<number | null>(null)
+  const activeRound = selectedRound !== null && rounds.includes(selectedRound) ? selectedRound : currentRound
 
   const roundFixtures = useMemo(
     () => fixtures.filter((fixture) => fixture.round === activeRound),
-    [activeRound],
+    [fixtures, activeRound],
   )
 
   const showPreviousRound = () => {
@@ -67,8 +89,8 @@ export function FixturesSection() {
       return
     }
 
-    setActiveRound((currentRound) => {
-      const currentIndex = rounds.indexOf(currentRound)
+    setSelectedRound((selected) => {
+      const currentIndex = rounds.indexOf(selected ?? activeRound)
       const nextIndex = currentIndex <= 0 ? rounds.length - 1 : currentIndex - 1
       return rounds[nextIndex]
     })
@@ -79,8 +101,8 @@ export function FixturesSection() {
       return
     }
 
-    setActiveRound((currentRound) => {
-      const currentIndex = rounds.indexOf(currentRound)
+    setSelectedRound((selected) => {
+      const currentIndex = rounds.indexOf(selected ?? activeRound)
       const nextIndex = currentIndex === -1 || currentIndex >= rounds.length - 1 ? 0 : currentIndex + 1
       return rounds[nextIndex]
     })
@@ -91,7 +113,7 @@ export function FixturesSection() {
       <div className="fixtures-heading">
         <div>
           <div className="section-kicker">AGENDA DO CAMPEONATO</div>
-          <h2>Próximos jogos</h2>
+          <h2>Jogos da rodada</h2>
         </div>
         <span className="fixtures-count"><strong>{roundFixtures.length}</strong> partidas</span>
       </div>
@@ -108,7 +130,13 @@ export function FixturesSection() {
 
       <div className="fixture-days" aria-live="polite">
         <div className="fixture-grid">
-          {roundFixtures.map((fixture) => <FixtureCard fixture={fixture} key={fixture.id} />)}
+          {roundFixtures.map((fixture) => (
+            <FixtureCard
+              fixture={fixture}
+              teamsById={teamsById}
+              key={fixture.id}
+            />
+          ))}
         </div>
         {roundFixtures.length === 0 && (
           <div className="fixtures-empty" role="status">Não há jogos programados para essa rodada.</div>
@@ -116,8 +144,8 @@ export function FixturesSection() {
       </div>
 
       <p className="fixtures-source">
-        Programação consultada em 8 de novembro de 2026. Horários sujeitos a alteração. Fonte:{' '}
-        <a href="https://www.espn.com.br/futebol/classificacao/_/liga/bra.1" target="_blank" rel="noreferrer">ESPN Brasil</a>.
+        Atualização automática a cada 5 minutos. O plano gratuito pode atrasar os placares. Fonte:{' '}
+        <a href="https://www.football-data.org/" target="_blank" rel="noreferrer">football-data.org</a>.
       </p>
     </section>
   )
