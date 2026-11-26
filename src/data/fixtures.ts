@@ -1,0 +1,36 @@
+import type { Fixture } from '../types/standings'
+
+export const fixtures: Fixture[] = [
+  { id: 'mirassol-atletico-mg', round: 35, date: '2026-11-14', time: '18:30', homeTeamId: 'mirassol', awayTeamId: 'atletico-mg' },
+  { id: 'chapecoense-vasco', round: 35, date: '2026-11-14', time: '20:30', homeTeamId: 'chapecoense', awayTeamId: 'vasco' },
+  { id: 'coritiba-santos', round: 35, date: '2026-11-18', time: '16:30', homeTeamId: 'coritiba', awayTeamId: 'santos' },
+  { id: 'remo-gremio', round: 35, date: '2026-11-18', time: '17:00', homeTeamId: 'remo', awayTeamId: 'gremio' },
+  { id: 'flamengo-athletico-pr', round: 35, date: '2026-11-18', time: '17:30', homeTeamId: 'flamengo', awayTeamId: 'athletico-pr' },
+  { id: 'cruzeiro-palmeiras', round: 35, date: '2026-11-18', time: '17:30', homeTeamId: 'cruzeiro', awayTeamId: 'palmeiras' },
+  { id: 'bahia-vitoria', round: 35, date: '2026-11-18', time: '18:30', homeTeamId: 'bahia', awayTeamId: 'vitoria' },
+  { id: 'botafogo-bragantino', round: 35, date: '2026-11-18', time: '18:30', homeTeamId: 'botafogo', awayTeamId: 'bragantino' },
+  { id: 'sao-paulo-fluminense', round: 35, date: '2026-11-19', time: '18:30', homeTeamId: 'sao-paulo', awayTeamId: 'fluminense' },
+  { id: 'internacional-corinthians', round: 35, date: '2026-11-19', time: '20:30', homeTeamId: 'internacional', awayTeamId: 'corinthians' },
+
+  { id: 'flamengo-vasco', round: 36, date: '2026-11-21', time: '18:30', homeTeamId: 'flamengo', awayTeamId: 'vasco' },
+  { id: 'palmeiras-bahia', round: 36, date: '2026-11-21', time: '20:30', homeTeamId: 'palmeiras', awayTeamId: 'bahia' },
+  { id: 'cruzeiro-mirassol', round: 36, date: '2026-11-25', time: '16:30', homeTeamId: 'cruzeiro', awayTeamId: 'mirassol' },
+  { id: 'fluminense-corinthians', round: 36, date: '2026-11-25', time: '17:00', homeTeamId: 'fluminense', awayTeamId: 'corinthians' },
+  { id: 'athletico-pr-chapecoense', round: 36, date: '2026-11-25', time: '17:30', homeTeamId: 'athletico-pr', awayTeamId: 'chapecoense' },
+  { id: 'bragantino-sao-paulo', round: 36, date: '2026-11-25', time: '18:30', homeTeamId: 'bragantino', awayTeamId: 'sao-paulo' },
+  { id: 'santos-internacional', round: 36, date: '2026-11-25', time: '18:30', homeTeamId: 'santos', awayTeamId: 'internacional' },
+  { id: 'botafogo-coritiba', round: 36, date: '2026-11-26', time: '16:30', homeTeamId: 'botafogo', awayTeamId: 'coritiba' },
+  { id: 'vitoria-gremio', round: 36, date: '2026-11-26', time: '17:30', homeTeamId: 'vitoria', awayTeamId: 'gremio' },
+  { id: 'atletico-mg-remo', round: 36, date: '2026-11-26', time: '18:30', homeTeamId: 'atletico-mg', awayTeamId: 'remo' },
+
+  { id: 'vasco-palmeiras', round: 37, date: '2026-11-28', time: '18:30', homeTeamId: 'vasco', awayTeamId: 'palmeiras' },
+  { id: 'chapecoense-santos', round: 37, date: '2026-11-28', time: '20:30', homeTeamId: 'chapecoense', awayTeamId: 'santos' },
+  { id: 'coritiba-flamengo', round: 37, date: '2026-12-02', time: '16:30', homeTeamId: 'coritiba', awayTeamId: 'flamengo' },
+  { id: 'remo-botafogo', round: 37, date: '2026-12-02', time: '17:00', homeTeamId: 'remo', awayTeamId: 'botafogo' },
+  { id: 'athletico-pr-bahia', round: 37, date: '2026-12-02', time: '17:30', homeTeamId: 'athletico-pr', awayTeamId: 'bahia' },
+  { id: 'cruzeiro-fluminense', round: 37, date: '2026-12-02', time: '18:30', homeTeamId: 'cruzeiro', awayTeamId: 'fluminense' },
+  { id: 'gremio-atletico-mg', round: 37, date: '2026-12-02', time: '18:30', homeTeamId: 'gremio', awayTeamId: 'atletico-mg' },
+  { id: 'corinthians-bragantino', round: 37, date: '2026-12-03', time: '16:30', homeTeamId: 'corinthians', awayTeamId: 'bragantino' },
+  { id: 'vitoria-sao-paulo', round: 37, date: '2026-12-03', time: '17:30', homeTeamId: 'vitoria', awayTeamId: 'sao-paulo' },
+  { id: 'internacional-mirassol', round: 37, date: '2026-12-03', time: '18:30', homeTeamId: 'internacional', awayTeamId: 'mirassol' },
+]
